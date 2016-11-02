@@ -16,6 +16,7 @@ Copy the files to a web directory on your server. Change the settings in `config
  - Make sure browser is the same [3]
 * Add more languages
 
+__footnotes__
 1. Done using real_escape_string on the vars.
 2. Check IP in the login trace table and force a 30 second wait after 5 wrongs? People can change IP using proxy?
 3. Store the `$_SERVER[HTTP_USER_AGENT]` hash value in a session. On each check of the session values this is comparerd to the current hash of the string.
