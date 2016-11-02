@@ -14,6 +14,7 @@ Copy the files to a web directory on your server. Change the settings in `config
  - Securely start a session
  - Protect against brute force [2]
  - Make sure browser is the same [3]
+* Add more languages
 
 1. Done using real_escape_string on the vars.
 2. Check IP in the login trace table and force a 30 second wait after 5 wrongs? People can change IP using proxy?
