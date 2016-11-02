@@ -11,7 +11,7 @@ Copy the files to a web directory on your server. Change the settings in `config
 - [ ] add new user -> no confirmation!?
 - [ ] Safety:
  - [x] Protect against injection [1]
- - [ ] Securely start a session
+ - [x] Securely start a session
  - [ ] Protect against brute force [2]
  - [ ] Make sure browser is the same [3]
 - [ ] Add more languages
