@@ -5,6 +5,8 @@ include 'language.php';
 $lang = new language("EN");
 
 // Include the login module
+include_once 'config_params.php'; // Settings for database and security used by login_module
+include_once 'misc_functions.php'; // Functions used by login_module
 include_once 'login_module.php';
 $login = new login_module($lang);
 ?>

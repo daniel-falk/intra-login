@@ -1,9 +1,5 @@
 <?php
 
-include_once "language.php";
-include_once 'config_params.php';
-include_once "misc_functions.php";
-
 class user
 {
     public $user_name;
@@ -45,6 +41,28 @@ class login_module
         return $_SESSION['username'];
     }
 
+    public function get_user_type()
+    {
+        return $_SESSION['type']; 
+    }
+
+    public function get_login_time()
+    {
+        return $_SESSION['login_time'];
+    }
+
+    public function get_last_activity()
+    {
+        return $_SESSION['last_activity'];
+    }
+
+    public function is_logged_in()
+    {
+        if ($_SESSION['is_logged_in'])
+            return true;
+        return false;
+    }
+
     public function get_msg() 
     {
         return $this->msg;
@@ -52,6 +70,10 @@ class login_module
 
     public function add_user($name, $pass, $pass2, $type)
     {
+        if (!$_SESSION['is_logged_in']){
+            $this->msg = $this->lang->MSG_WARN_NO_PRIVILEGES;
+            return false;
+        }
         if (strcmp($pass, $pass2)){
             $this->msg = $this->lang->MSG_WARN_PASS_MATCH;
             return false;
