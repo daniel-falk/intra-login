@@ -11,6 +11,17 @@ class user
     }
 }
 
+class Data
+{
+    public $username;
+    public $user_type;
+    public $valid_time;
+    public $login_time;
+    public $last_activity;
+    public $logged_in;
+    public $msg;
+}
+
 class login_module 
 {
     private $msg = '';
@@ -38,27 +49,35 @@ class login_module
 
     public function get_user_name() 
     {
-        return $_SESSION['username'];
+        if (isset($_SESSION['username']))
+            return $_SESSION['username'];
+        return null;
     }
 
     public function get_user_type()
     {
-        return $_SESSION['type']; 
+        if (isset($_SESSION['type']))
+            return $_SESSION['type']; 
+        return null;
     }
 
     public function get_login_time()
     {
-        return $_SESSION['login_time'];
+        if (isset($_SESSION['login_time']))
+            return $_SESSION['login_time'];
+        return null;
     }
 
     public function get_last_activity()
     {
-        return $_SESSION['last_activity'];
+        if (isset($_SESSION['last_activity']))
+            return $_SESSION['last_activity'];
+        return null;
     }
 
     public function is_logged_in()
     {
-        if ($_SESSION['is_logged_in'])
+        if (isset($_SESSION['is_logged_in']))
             return true;
         return false;
     }
@@ -66,6 +85,19 @@ class login_module
     public function get_msg() 
     {
         return $this->msg;
+    }
+
+    public function get_data()
+    {
+        $data = new Data();
+        $data->username = $this->get_user_name();
+        $data->user_type = $this->get_user_type();
+        $data->valid_time = null;
+        $data->login_time = $this->get_login_time();
+        $data->last_activity = $this->get_last_activity();
+        $data->logged_in = $this->is_logged_in();
+        $data->msg = $this->msg;
+        return $data;
     }
 
     public function add_user($name, $pass, $pass2, $type)

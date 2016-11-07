@@ -15,6 +15,7 @@ Copy the files to a web directory on your server. Change the settings in `config
  - [ ] Protect against brute force [2]
  - [ ] Make sure browser is the same [3]
 - [ ] Add more languages
+- [ ] Formating: Change classes to start with capital letter. 
 
 __footnotes__
 
