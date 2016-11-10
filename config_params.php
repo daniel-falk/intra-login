@@ -13,6 +13,7 @@ class DEFAULTS {
 }
 
 class SECURITY {
+    public static $SESSION_TIMEOUT = 3600; // Seconds
     public static $USING_SSL = false; // Is the page accessed over https?
     public static $ANONYMOUS_PRIVILEGES = "observer"; // Privileges for users logging in with the same ip system
 }

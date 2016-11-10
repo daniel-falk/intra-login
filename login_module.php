@@ -77,7 +77,9 @@ class login_module
 
     public function is_logged_in()
     {
-        if (isset($_SESSION['is_logged_in']))
+        if (isset($_SESSION['is_logged_in']) 
+            && isset($_SESSION['last_activity']) 
+            && time() - $_SESSION['last_activity'] < SECURITY::$SESSION_TIMEOUT)
             return true;
         return false;
     }
@@ -92,7 +94,7 @@ class login_module
         $data = new Data();
         $data->username = $this->get_user_name();
         $data->user_type = $this->get_user_type();
-        $data->valid_time = null;
+        $data->valid_time = SECURITY::$SESSION_TIMEOUT;
         $data->login_time = $this->get_login_time();
         $data->last_activity = $this->get_last_activity();
         $data->logged_in = $this->is_logged_in();
@@ -102,7 +104,7 @@ class login_module
 
     public function add_user($name, $pass, $pass2, $type)
     {
-        if (!$_SESSION['is_logged_in']){
+        if ($this->is_logged_in()){
             $this->msg = $this->lang->MSG_WARN_NO_PRIVILEGES;
             return false;
         }
@@ -135,9 +137,9 @@ class login_module
         $this->build_table_structure();
         // If pass_through_interns is true then do an automatic login if client IP == server IP
         if ($pass_through_interns==true)
-            $this->login_no_check('', SECURITY::ANONYMOUS_PRIVILEGES);
+            $this->login_no_check('', SECURITY::$ANONYMOUS_PRIVILEGES);
         // Check if user login data is stored in a session
-        if ((!empty($_SESSION['username']) || $pass_through_interns==true) && $_SESSION['is_logged_in']) {
+        if ((!empty($_SESSION['username']) || $pass_through_interns==true) && $this->is_logged_in()) {
             $_SESSION['last_activity'] = time();
             $this->close_db();
             return true;
@@ -202,6 +204,7 @@ class login_module
             $this->msg = $this->lang->MSG_ERR_DATABASE;
             return false;
         }
+        $this->conn->set_charset("utf8");
         return true;	
     }
 
